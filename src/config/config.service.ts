@@ -100,6 +100,10 @@ class ConfigService {
         return this.getValue({key: "MODE", throwOnMissing: false}) === "production";
     }
 
+    public getDbURL(): string {
+        return this.getValue({key: "DB_URL", throwOnMissing: true})
+    }
+
     // public getTypeOrmConfig(): PostgresConnectionOptions {
     //     return {
     //         type: "postgres",
@@ -216,7 +220,8 @@ class ConfigService {
 
 const serverConfigService: ConfigService = new ConfigService(process.env)
     .ensureValues([
-        "PORT"
+        "PORT",
+        "DB_URL"
     ])
 export {
     // databaseConfigService,
