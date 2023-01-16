@@ -28,13 +28,13 @@ export class PostService {
 
         return post;
     }
-    //
-    // public getOne(id: string): Post | undefined {
-    //     const findPost: Post | undefined = this.find(id);
-    //     if (findPost) return findPost;
-    //     throw new Error();
-    // }
-    //
+
+    public async getOne(id: string): Promise<IPost | undefined> {
+        const findPost: IPost | undefined = await this.find(id);
+        if (findPost) return findPost;
+        throw new Error();
+    }
+
     // public update(id: string, title: string, shortDescription: string, content: string, blogId: string): Post | undefined {
     //     const blogService = new BlogService();
     //     const blog: Blog | undefined = blogService.find(blogId);
@@ -49,20 +49,20 @@ export class PostService {
     //     throw new Error()
     // }
     //
-    // public delete(id: string): void {
-    //     const deletePost: Post = this.find(id);
-    //     if (deletePost) {
-    //         const index = postsRepositories.indexOf(deletePost);
-    //         postsRepositories.splice(index, 1);
-    //
-    //         return;
-    //     }
-    //     throw new Error()
-    // }
-    //
-    // public testingDelete(): Post[] {
-    //     postsRepositories.length = 0;
-    //
-    //     return postsRepositories;
-    // }
+    public async delete(id: string): Promise<void> {
+        // const deletePost: IPost = this.find(id);
+        // if (deletePost) {
+        //     const index = postsRepositories.indexOf(deletePost);
+        //     postsRepositories.splice(index, 1);
+        //
+        //     return;
+        // }
+        // throw new Error()
+        await this.postRepository.deletePost(id)
+
+    }
+
+    public async testingDelete(): Promise<void> {
+        await this.postRepository.deleteAll() ;
+    }
 }

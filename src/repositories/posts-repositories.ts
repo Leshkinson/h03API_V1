@@ -33,5 +33,13 @@ export class PostsRepository {
         return this.postModel.findById(id)
     }
 
+    public async deletePost(id: string) {
+        return this.postModel.findOneAndDelete({id})
+    }
+
+    public async deleteAll() {
+        return this.postModel.deleteMany()
+    }
+
 
 }
