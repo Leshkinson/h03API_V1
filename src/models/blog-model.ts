@@ -1,14 +1,14 @@
 import mongoose, {Schema} from "mongoose";
 
 export interface IBlog {
-    _id: string
+    id: string
     name: string;
     description: string;
     websiteUrl: string;
 }
 
 export const BlogSchema = new Schema<IBlog>({
-    _id: {type: String, unique: true, required: true},
+    id: {type: String, unique: true, required: true},
     name: {type: String, required: true},
     description: {type: String, required: true},
     websiteUrl: {type: String, required: true},
