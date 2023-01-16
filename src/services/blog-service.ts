@@ -1,11 +1,9 @@
-//import {Blog, blogs} from "../repositories/blogs";
-import {BlogsRepository} from "../repositories/blogs-repositories";
 import {IBlog} from "../models/blog-model";
-
-
+import {BlogsRepository} from "../repositories/blogs-repositories";
 
 export class BlogService {
     private blogRepository: BlogsRepository;
+
     constructor() {
         this.blogRepository = new BlogsRepository()
     }
@@ -15,13 +13,6 @@ export class BlogService {
     }
 
     public async create(name: string, description: string, websiteUrl: string): Promise<IBlog> {
-        // const newBlog: Blog = {
-        //     id: String(+(new Date)),
-        //     name,
-        //     description,
-        //     websiteUrl
-        // }
-        // blogs.push(newBlog);
         return await this.blogRepository.createBlog(name, description, websiteUrl);
     }
 
@@ -39,29 +30,16 @@ export class BlogService {
     }
 
     public async update(id: string, name: string, description: string, websiteUrl: string): Promise<IBlog | undefined> {
-        //const updateBlog: IBlog = this.find(id);
         const updateBlog = await this.blogRepository.updateBlog(id, name, description, websiteUrl);
         if (updateBlog) return updateBlog;
         throw new Error()
     }
 
     public async delete(id: string): Promise<void> {
-        //const deleteBlog: IBlog = this.find(id);
-       await this.blogRepository.deleteBlog(id)
-        // if (deleteBlog) {
-        //     const index = blogs.indexOf(deleteBlog);
-        //     blogs.splice(index, 1);
-        //
-        //     return;
-        // }
-        //throw new Error()
+        await this.blogRepository.deleteBlog(id)
     }
 
     public async testingDelete(): Promise<void> {
-        // blogs.length = 0;
-        //
-        // return blogs;
         await this.blogRepository.deleteAll()
-
     }
 }

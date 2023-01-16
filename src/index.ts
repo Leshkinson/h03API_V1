@@ -1,10 +1,9 @@
 import express from "express";
+import mongoose from "mongoose";
 import * as dotenv from 'dotenv';
 import bodyParser from "body-parser";
 import {router} from "./router/router";
 import {serverConfigService} from "./config/config.service";
-import mongoose from "mongoose";
-
 
 dotenv.config()
 
@@ -13,7 +12,7 @@ const app = express();
 app.use(bodyParser.json());
 app.use('/', router);
 
-const start = async () => {
+const start = async (): Promise<void> => {
     try {
         const PORT = serverConfigService.getPort() || 4546;
         await mongoose.connect(serverConfigService.getDbURL());
@@ -29,3 +28,9 @@ const start = async () => {
 }
 
 start()
+    .then(() => {
+        console.log('Good start')
+    })
+    .catch(error => {
+        console.log(error.message)
+    })

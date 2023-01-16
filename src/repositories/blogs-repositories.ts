@@ -1,5 +1,5 @@
-import {BlogModel, IBlog} from "../models/blog-model"
 import {Model} from "mongoose";
+import {BlogModel, IBlog} from "../models/blog-model";
 
 export class BlogsRepository {
     private blogModel: Model<IBlog>;
@@ -21,7 +21,7 @@ export class BlogsRepository {
     }
 
     public async updateBlog(id: string, name: string, description: string, websiteUrl: string) {
-        return this.blogModel.findOneAndUpdate({id},{
+        return this.blogModel.findOneAndUpdate({id}, {
             name,
             description,
             websiteUrl

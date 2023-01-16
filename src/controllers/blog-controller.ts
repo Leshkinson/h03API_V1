@@ -1,11 +1,11 @@
 import {Request, Response} from "express";
 import {IBlog} from "../models/blog-model";
 import {BlogService} from "../services/blog-service";
-//import {PostService} from "../services/post-service";
+import {PostService} from "../services/post-service";
 
 export class BlogController {
 
-     static async getAllBlogs(req: Request, res: Response) {
+    static async getAllBlogs(req: Request, res: Response) {
         try {
             const blogService = new BlogService();
             const blogs: IBlog[] = await blogService.getAll();
@@ -58,6 +58,7 @@ export class BlogController {
             }
         }
     }
+
     //
     static async deleteBlog(req: Request, res: Response) {
         try {
@@ -72,18 +73,18 @@ export class BlogController {
             }
         }
     }
-    //
-    // static testing(req: Request, res: Response) {
-    //     try {
-    //         const blogService = new BlogService();
-    //         const postService = new PostService();
-    //         blogService.testingDelete();
-    //         postService.testingDelete();
-    //         res.sendStatus(204);
-    //     } catch (error) {
-    //         if (error instanceof Error) {
-    //             throw new Error(error.message);
-    //         }
-    //     }
-    // }
+
+    static async testing(req: Request, res: Response) {
+        try {
+            const blogService = new BlogService();
+            const postService = new PostService();
+            await blogService.testingDelete();
+            await postService.testingDelete();
+            res.sendStatus(204);
+        } catch (error) {
+            if (error instanceof Error) {
+                throw new Error(error.message);
+            }
+        }
+    }
 }

@@ -12,7 +12,7 @@ export const BlogSchema = new Schema<IBlog>({
     name: {type: String, required: true},
     description: {type: String, required: true},
     websiteUrl: {type: String, required: true},
-}, { timestamps: true })
+}, {timestamps: true})
 
 BlogSchema.set('toJSON', {
     transform: function (doc, dto) {

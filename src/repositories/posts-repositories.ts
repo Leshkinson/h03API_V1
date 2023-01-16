@@ -1,18 +1,5 @@
-import{PostModel, IPost} from "../models/post-model";
 import {Model} from "mongoose";
-
-
-
-// export const postsRepositories: Array<Post> = [
-//     {
-//         id: "1",
-//         title: "Craft",
-//         shortDescription: "About DIY",
-//         content: "DIY",
-//         blogId: "1",
-//         blogName: "DanyaKraster"
-//     }
-// ]
+import {PostModel, IPost} from "../models/post-model";
 
 export class PostsRepository {
     private postModel: Model<IPost>
@@ -33,6 +20,15 @@ export class PostsRepository {
         return this.postModel.findById(id)
     }
 
+    public async updatePost(id: string, title: string, shortDescription: string, content: string, blogId: string) {
+        return this.postModel.findOneAndUpdate({id}, {
+            title,
+            shortDescription,
+            content,
+            blogId
+        })
+    }
+
     public async deletePost(id: string) {
         return this.postModel.findOneAndDelete({id})
     }
@@ -40,6 +36,4 @@ export class PostsRepository {
     public async deleteAll() {
         return this.postModel.deleteMany()
     }
-
-
 }
