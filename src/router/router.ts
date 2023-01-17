@@ -2,13 +2,15 @@ import {Router} from "express";
 import {isErrorMiddleware} from "../middleware/catch-error";
 import {BlogController} from "../controllers/blog-controller";
 import {PostController} from "../controllers/post-controller";
+import {TestController} from "../controllers/testing-controller";
 import {basicAuthorization} from "../authrizations/authorization";
 import {blogValidation, postValidation} from "../validator/validator";
+
 
 export const router = Router();
 
 /**Test**/
-router.delete('/testing/all-data', BlogController.testing)
+router.delete('/testing/all-data', TestController.testing)
 
 /**Blogs**/
 router.get('/blogs', BlogController.getAllBlogs);

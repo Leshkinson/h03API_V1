@@ -1,7 +1,6 @@
 import {Request, Response} from "express";
 import {IBlog} from "../models/blog-model";
 import {BlogService} from "../services/blog-service";
-import {PostService} from "../services/post-service";
 
 export class BlogController {
 
@@ -68,20 +67,6 @@ export class BlogController {
         } catch (error) {
             if (error instanceof Error) {
                 res.sendStatus(404);
-                throw new Error(error.message);
-            }
-        }
-    }
-
-    static async testing(req: Request, res: Response) {
-        try {
-            const blogService = new BlogService();
-            const postService = new PostService();
-            await blogService.testingDelete();
-            await postService.testingDelete();
-            res.sendStatus(204);
-        } catch (error) {
-            if (error instanceof Error) {
                 throw new Error(error.message);
             }
         }

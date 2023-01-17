@@ -17,11 +17,11 @@ export class BlogsRepository {
     }
 
     public async getOneBlog(id: string) {
-        return this.blogModel.findById(id);
+        return this.blogModel.findById({_id:{id}});
     }
 
     public async updateBlog(id: string, name: string, description: string, websiteUrl: string) {
-        return this.blogModel.findOneAndUpdate({id}, {
+        return this.blogModel.findOneAndUpdate({_id:{id}}, {
             name,
             description,
             websiteUrl
@@ -29,7 +29,7 @@ export class BlogsRepository {
     }
 
     public async deleteBlog(id: string) {
-        return this.blogModel.findOneAndDelete({id})
+        return this.blogModel.findOneAndRemove({_id:{id}})
     }
 
     public async deleteAll() {

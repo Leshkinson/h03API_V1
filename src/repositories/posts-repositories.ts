@@ -17,11 +17,11 @@ export class PostsRepository {
     }
 
     public async getOnePost(id: string) {
-        return this.postModel.findById(id)
+        return this.postModel.findById({_id:{id}})
     }
 
     public async updatePost(id: string, title: string, shortDescription: string, content: string, blogId: string) {
-        return this.postModel.findOneAndUpdate({id}, {
+        return this.postModel.findOneAndUpdate({_id:{id}}, {
             title,
             shortDescription,
             content,
@@ -30,7 +30,7 @@ export class PostsRepository {
     }
 
     public async deletePost(id: string) {
-        return this.postModel.findOneAndDelete({id})
+        return this.postModel.findOneAndDelete({_id:{id}})
     }
 
     public async deleteAll() {
