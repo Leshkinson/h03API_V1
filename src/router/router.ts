@@ -20,9 +20,9 @@ router.put('/blogs/:id', basicAuthorization, blogValidation, isErrorMiddleware, 
 router.delete('/blogs/:id', basicAuthorization, BlogController.deleteBlog);
 
 /**Posts**/
-router.get('/postsRepositories', PostController.getAllPosts);
-router.post('/postsRepositories', basicAuthorization, postValidation, isErrorMiddleware, PostController.createPost);
-router.get('/postsRepositories/:id', PostController.getOnePost);
-router.put('/postsRepositories/:id', basicAuthorization, postValidation, isErrorMiddleware, PostController.updatePost);
-router.delete('/postsRepositories/:id', basicAuthorization, PostController.deletePost);
+router.get('/posts', PostController.getAllPosts);
+router.post('/posts', basicAuthorization, postValidation, isErrorMiddleware, PostController.createPost);
+router.get('/posts/:id', PostController.getOnePost);
+router.put('/posts/:id', basicAuthorization, postValidation, isErrorMiddleware, PostController.updatePost);
+router.delete('/posts/:id', basicAuthorization, PostController.deletePost);
 

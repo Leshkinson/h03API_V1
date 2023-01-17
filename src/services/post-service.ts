@@ -1,5 +1,4 @@
 import {IBlog} from "../models/blog-model";
-import {BlogService} from "./blog-service";
 import {IPost} from "../models/post-model";
 import {PostsRepository} from "../repositories/posts-repositories";
 import {BlogsRepository} from "../repositories/blogs-repositories";
@@ -18,12 +17,14 @@ export class PostService {
         return await this.postRepository.getAllPosts();
     }
 
-    public async create(title: string, shortDescription: string, content: string, blogId: string): Promise<IPost | undefined> {
-        const blogService = new BlogService();
-        const blog: IBlog | undefined = await blogService.find(blogId);
+    public async create(title: string, shortDescription: string, content: string, blogId: string): Promise<IPost> {
+        console.log('blogId', blogId)
+        const blog: IBlog | undefined | null = await this.blogRepository.getOneBlog(blogId);
+        console.log('blog',blog)
         if (blog) {
-            return await this.postRepository.createPost(title, shortDescription, content, blog.id, blog.name);
+            return await this.postRepository.createPost(title, shortDescription, content, blog.id, blog.name)
         }
+        throw new Error()
     }
 
     public async find(id: string): Promise<IPost | undefined> {

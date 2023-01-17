@@ -17,9 +17,9 @@ export class PostController {
 
     static async createPost(req: Request, res: Response) {
         try {
-            const postService = new PostService();
             const {title, shortDescription, content, blogId} = req.body;
-            const newPost = await postService.create(title, shortDescription, content, blogId);
+            const postService = new PostService();
+            const newPost: IPost | undefined = await postService.create(title, shortDescription, content, blogId);
             res.status(201).json(newPost);
         } catch (error) {
             if (error instanceof Error) {

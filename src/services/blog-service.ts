@@ -35,8 +35,10 @@ export class BlogService {
         throw new Error()
     }
 
-    public async delete(id: string): Promise<void> {
-        await this.blogRepository.deleteBlog(id)
+    public async delete(id: string): Promise<IBlog> {
+        const deleteBlog = await this.blogRepository.deleteBlog(id)
+        if (deleteBlog) return deleteBlog
+        throw new Error()
     }
 
     public async testingDelete(): Promise<void> {
