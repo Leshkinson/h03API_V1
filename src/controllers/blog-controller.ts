@@ -59,7 +59,6 @@ export class BlogController {
         }
     }
 
-    //
     static async deleteBlog(req: Request, res: Response) {
         try {
             const {id} = req.params;

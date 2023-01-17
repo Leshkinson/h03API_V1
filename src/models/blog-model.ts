@@ -8,7 +8,6 @@ export interface IBlog {
 }
 
 export const BlogSchema = new Schema<IBlog>({
-    id: {type: String, unique: true, required: true},
     name: {type: String, required: true},
     description: {type: String, required: true},
     websiteUrl: {type: String, required: true},
