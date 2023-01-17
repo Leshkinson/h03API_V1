@@ -22,7 +22,7 @@ export class PostService {
         const blogService = new BlogService();
         const blog: IBlog | undefined = await blogService.find(blogId);
         if (blog) {
-            return await this.postRepository.createPost(title, shortDescription, content, blog._id, blog.name);
+            return await this.postRepository.createPost(title, shortDescription, content, blog.id, blog.name);
         }
     }
 
