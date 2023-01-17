@@ -1,4 +1,4 @@
-import {Model} from "mongoose";
+import {Model, RefType} from "mongoose";
 import {PostModel, IPost} from "../models/post-model";
 
 export class PostsRepository {
@@ -16,11 +16,11 @@ export class PostsRepository {
         return await this.postModel.create({title, shortDescription, content, blogId, blogName})
     }
 
-    public async getOnePost(id: string) {
+    public async getOnePost(id: RefType) {
         return this.postModel.findById({_id:id})
     }
 
-    public async updatePost(id: string, title: string, shortDescription: string, content: string, blogId: string) {
+    public async updatePost(id: RefType, title: string, shortDescription: string, content: string, blogId: string) {
         return this.postModel.findOneAndUpdate({_id:id}, {
             title,
             shortDescription,
@@ -29,7 +29,7 @@ export class PostsRepository {
         })
     }
 
-    public async deletePost(id: string) {
+    public async deletePost(id: RefType) {
         return this.postModel.findOneAndDelete({_id:id})
     }
 

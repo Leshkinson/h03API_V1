@@ -1,4 +1,4 @@
-import {Model} from "mongoose";
+import {Model, RefType} from "mongoose";
 import {BlogModel, IBlog} from "../models/blog-model";
 
 export class BlogsRepository {
@@ -16,11 +16,11 @@ export class BlogsRepository {
         return await this.blogModel.create({name, description, websiteUrl})
     }
 
-    public async getOneBlog(id: string) {
-        return this.blogModel.findById({_id:id});
+    public async getOneBlog(id: RefType) {
+        return this.blogModel.findOne({_id:id});
     }
 
-    public async updateBlog(id: string, name: string, description: string, websiteUrl: string) {
+    public async updateBlog(id: RefType, name: string, description: string, websiteUrl: string) {
         return this.blogModel.findOneAndUpdate({_id:id}, {
             name,
             description,
@@ -28,7 +28,7 @@ export class BlogsRepository {
         })
     }
 
-    public async deleteBlog(id: string) {
+    public async deleteBlog(id: RefType) {
         return this.blogModel.findOneAndDelete({_id:id})
     }
 

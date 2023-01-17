@@ -19,9 +19,9 @@ const isWebsiteUrlPattern: CustomValidator = (value: string) => {
     return true;
 }
 
-const isBodyIdPattern: CustomValidator = (value) => {
+const isBodyIdPattern: CustomValidator = (value: string) => {
     const blogService = new BlogService()
-    const blog = blogService.find(value)
+    const blog = blogService.getOne(value)
     if (!blog) {
         throw new Error()
     }

@@ -1,5 +1,6 @@
 import {IBlog} from "../models/blog-model";
 import {BlogsRepository} from "../repositories/blogs-repositories";
+import {RefType} from "mongoose";
 
 export class BlogService {
     private blogRepository: BlogsRepository;
@@ -16,26 +17,26 @@ export class BlogService {
         return await this.blogRepository.createBlog(name, description, websiteUrl);
     }
 
-    public async find(id: string): Promise<IBlog | undefined> {
+    public async find(id: RefType): Promise<IBlog | undefined> {
         const blog = await this.blogRepository.getOneBlog(id);
-        if (!blog) throw new Error();
+        if (blog) return blog;
 
-        return blog;
+        throw new Error();
     }
 
-    public async getOne(id: string): Promise<IBlog | undefined> {
+    public async getOne(id: RefType): Promise<IBlog | undefined> {
         const findBlog: IBlog | undefined = await this.find(id);
         if (findBlog) return findBlog;
         throw new Error();
     }
 
-    public async update(id: string, name: string, description: string, websiteUrl: string): Promise<IBlog | undefined> {
+    public async update(id: RefType, name: string, description: string, websiteUrl: string): Promise<IBlog | undefined> {
         const updateBlog = await this.blogRepository.updateBlog(id, name, description, websiteUrl);
         if (updateBlog) return updateBlog;
         throw new Error()
     }
 
-    public async delete(id: string): Promise<IBlog> {
+    public async delete(id: RefType): Promise<IBlog> {
         const deleteBlog = await this.blogRepository.deleteBlog(id)
         if (deleteBlog) return deleteBlog
         throw new Error()

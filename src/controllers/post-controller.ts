@@ -20,7 +20,7 @@ export class PostController {
             const {title, shortDescription, content, blogId} = req.body;
             const postService = new PostService();
             const newPost: IPost | undefined = await postService.create(title, shortDescription, content, blogId);
-            res.status(201).json(newPost);
+            if (newPost) res.status(201).json(newPost);
         } catch (error) {
             if (error instanceof Error) {
                 console.log(error.message);

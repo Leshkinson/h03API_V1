@@ -2,6 +2,8 @@ import {IBlog} from "../models/blog-model";
 import {IPost} from "../models/post-model";
 import {PostsRepository} from "../repositories/posts-repositories";
 import {BlogsRepository} from "../repositories/blogs-repositories";
+import {BlogService} from "./blog-service";
+import {RefType, Schema} from "mongoose";
 
 export class PostService {
 
@@ -17,30 +19,33 @@ export class PostService {
         return await this.postRepository.getAllPosts();
     }
 
-    public async create(title: string, shortDescription: string, content: string, blogId: string): Promise<IPost> {
+    public async create(title: string, shortDescription: string, content: string, blogId: Schema.Types.ObjectId): Promise<IPost> {
         console.log('blogId', blogId)
-        const blog: IBlog | undefined | null = await this.blogRepository.getOneBlog(blogId);
+        const findBlog = await this.blogRepository.getOneBlog(blogId)
+        console.log('findBlog', findBlog)
+        const blogService = new BlogService();
+        const blog: IBlog | undefined = await blogService.getOne(blogId);
         console.log('blog',blog)
-        if (blog) {
-            return await this.postRepository.createPost(title, shortDescription, content, blog.id, blog.name)
+        if (blog !== null) {
+            return await this.postRepository.createPost(title, shortDescription, content, blog._id, blog.name)
         }
         throw new Error()
     }
 
-    public async find(id: string): Promise<IPost | undefined> {
+    public async find(id: RefType): Promise<IPost | undefined> {
         const post = await this.postRepository.getOnePost(id);
         if (!post) throw new Error();
 
         return post;
     }
 
-    public async getOne(id: string): Promise<IPost | undefined> {
+    public async getOne(id: RefType): Promise<IPost | undefined> {
         const findPost: IPost | undefined = await this.find(id);
         if (findPost) return findPost;
         throw new Error();
     }
 
-    public async update(id: string, title: string, shortDescription: string, content: string, blogId: string): Promise<IPost | undefined> {
+    public async update(id: RefType, title: string, shortDescription: string, content: string, blogId: string): Promise<IPost | undefined> {
 
         const blog: IBlog | undefined | null = await this.blogRepository.getOneBlog(blogId);
         const updatePost: IPost | undefined | null = await this.postRepository.updatePost(id, title, shortDescription, content, blogId);
