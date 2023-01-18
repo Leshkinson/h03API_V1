@@ -36,10 +36,8 @@ export class BlogService {
         throw new Error()
     }
 
-    public async delete(id: RefType): Promise<IBlog> {
-        console.log("For the check")
+    public async delete(id: string): Promise<IBlog> {
         const deleteBlog = await this.blogRepository.deleteBlog(id)
-        console.log("Delete blog", deleteBlog)
         if (deleteBlog) return deleteBlog
         throw new Error()
     }
