@@ -1,7 +1,7 @@
-import mongoose, {RefType, Schema} from "mongoose";
+import mongoose, {Schema} from "mongoose";
 
 export interface IPost {
-    _id: Schema.Types.ObjectId ;
+    _id: mongoose.Schema.Types.ObjectId ;
     title: string;
     shortDescription: string;
     content: string;
@@ -9,19 +9,19 @@ export interface IPost {
     blogName: string;
 }
 
-export const PostSchema = new Schema<IPost>({
-    _id: {type: Schema.Types.ObjectId},
-    title: {type: String, required: true},
-    shortDescription: {type: String, required: true},
-    content: {type: String, required: true},
-    blogId: {type: String, required: true},
-    blogName: {type: String, required: true},
+export const PostSchema = new Schema({
+    //_id: {type: mongoose.Schema.Types.ObjectId},
+    title: {type: "string", required: true},
+    shortDescription: {type: "string", required: true},
+    content: {type: "string", required: true},
+    blogId: {type: "string", required: true},
+    blogName: {type: "string", required: true},
 }, {timestamps: true});
 
 PostSchema.set('toJSON', {
     transform: function (doc, dto) {
-        //dto.id = dto._id;
-        //delete dto._id;
+        dto.id = dto._id;
+        delete dto._id;
         delete dto.__v;
         delete dto.updatedAt
     }

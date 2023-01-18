@@ -2,8 +2,7 @@ import {IBlog} from "../models/blog-model";
 import {IPost} from "../models/post-model";
 import {PostsRepository} from "../repositories/posts-repositories";
 import {BlogsRepository} from "../repositories/blogs-repositories";
-import {BlogService} from "./blog-service";
-import {RefType, Schema} from "mongoose";
+import {RefType} from "mongoose";
 
 export class PostService {
 
@@ -19,15 +18,10 @@ export class PostService {
         return await this.postRepository.getAllPosts();
     }
 
-    public async create(title: string, shortDescription: string, content: string, blogId: Schema.Types.ObjectId): Promise<IPost> {
-        console.log('blogId', blogId)
-        const findBlog = await this.blogRepository.getOneBlog(blogId)
-        console.log('findBlog', findBlog)
-        const blogService = new BlogService();
-        const blog: IBlog | undefined = await blogService.getOne(blogId);
-        console.log('blog',blog)
-        if (blog !== null) {
-            return await this.postRepository.createPost(title, shortDescription, content, blog._id, blog.name)
+    public async create(title: string, shortDescription: string, content: string, blogId: string): Promise<IPost> {
+        const blog: IBlog | null = await this.blogRepository.getOneBlog(blogId)
+        if (blog) {
+            return await this.postRepository.createPost(title, shortDescription, content, (blog?._id).toString(), blog?.name)
         }
         throw new Error()
     }

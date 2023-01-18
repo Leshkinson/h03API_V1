@@ -12,7 +12,7 @@ export class PostsRepository {
         return this.postModel.find()
     }
 
-    public async createPost(title: string, shortDescription: string, content: string, blogId: string, blogName: string) {
+    public async createPost(title: string, shortDescription: string, content: string, blogId: string | undefined, blogName: string | undefined) {
         return await this.postModel.create({title, shortDescription, content, blogId, blogName})
     }
 

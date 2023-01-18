@@ -19,9 +19,9 @@ const isWebsiteUrlPattern: CustomValidator = (value: string) => {
     return true;
 }
 
-const isBodyIdPattern: CustomValidator = (value: string) => {
+const isBodyIdPattern: CustomValidator = async (value: string) => {
     const blogService = new BlogService()
-    const blog = blogService.getOne(value)
+    const blog = await blogService.getOne(value)
     if (!blog) {
         throw new Error()
     }
@@ -88,7 +88,7 @@ export const blogIdValidation = body('blogId')
     .isString()
     .withMessage("BlogId has incorrect value. (BlogId doesn't string)")
     .custom(isBodyIdPattern)
-    .withMessage("BlogId has incorrect value. (BlogId not found");
+    .withMessage("BlogId has incorrect value. (BlogId not found)");
 
 export const blogValidation = [nameValidation, descriptionValidation, websiteUrlValidation];
 export const postValidation = [titleValidation, shortDescriptionValidation, shortDescriptionValidation, contentDescriptionValidation, blogIdValidation]
