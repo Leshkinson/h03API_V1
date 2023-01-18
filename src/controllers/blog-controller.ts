@@ -34,8 +34,6 @@ export class BlogController {
             const {id} = req.params;
             const blogService = new BlogService();
             const findBlog: IBlog | undefined = await blogService.getOne(id);
-            // console.log("findBlog", findBlog)
-            // console.log('findBlog.id',findBlog?._id)
             if (findBlog) res.status(200).json(findBlog);
         } catch (error) {
             if (error instanceof Error) {

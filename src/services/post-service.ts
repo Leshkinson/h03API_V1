@@ -53,8 +53,10 @@ export class PostService {
         throw new Error()
     }
 
-    public async delete(id: string): Promise<void> {
-        await this.postRepository.deletePost(id)
+    public async delete(id: string): Promise<IPost> {
+        const deletePost = await this.postRepository.deletePost(id)
+        if (deletePost) return deletePost
+        throw new Error()
     }
 
     public async testingDelete(): Promise<void> {
