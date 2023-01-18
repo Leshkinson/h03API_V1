@@ -17,7 +17,7 @@ export class BlogsRepository {
     }
 
     public async getOneBlog(id: RefType) {
-        return this.blogModel.findOne({_id:id});
+        return this.blogModel.findById({_id:id});
     }
 
     public async updateBlog(id: RefType, name: string, description: string, websiteUrl: string) {

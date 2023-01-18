@@ -19,9 +19,9 @@ export class BlogService {
 
     public async find(id: RefType): Promise<IBlog | undefined> {
         const blog = await this.blogRepository.getOneBlog(id);
-        if (blog) return blog;
+        if (!blog) throw new Error();
 
-        throw new Error();
+        return blog;
     }
 
     public async getOne(id: RefType): Promise<IBlog | undefined> {
