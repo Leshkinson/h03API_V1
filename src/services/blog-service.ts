@@ -1,6 +1,6 @@
+import {RefType} from "mongoose";
 import {IBlog} from "../models/blog-model";
 import {BlogsRepository} from "../repositories/blogs-repositories";
-import {RefType} from "mongoose";
 
 export class BlogService {
     private blogRepository: BlogsRepository;
@@ -31,7 +31,7 @@ export class BlogService {
     }
 
     public async update(id: RefType, name: string, description: string, websiteUrl: string): Promise<IBlog | undefined> {
-        const updateBlog = await this.blogRepository.updateBlog(id, name, description, websiteUrl);
+        const updateBlog: IBlog | undefined | null = await this.blogRepository.updateBlog(id, name, description, websiteUrl);
         if (updateBlog) return updateBlog;
         throw new Error()
     }

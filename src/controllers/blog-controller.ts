@@ -3,7 +3,6 @@ import {IBlog} from "../models/blog-model";
 import {BlogService} from "../services/blog-service";
 
 export class BlogController {
-
     static async getAllBlogs(req: Request, res: Response) {
         try {
             const blogService = new BlogService();
@@ -53,7 +52,7 @@ export class BlogController {
         } catch (error) {
             if (error instanceof Error) {
                 res.sendStatus(404);
-                throw new Error(error.message);
+                console.log(error.message);
             }
         }
     }
